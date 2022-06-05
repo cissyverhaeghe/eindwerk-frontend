@@ -1,9 +1,20 @@
 import axios from "axios";
 
-const Index = (animals) => {
+const Index = ({ animals }) => {
+  console.log(animals);
+
   return (
     <>
       <div>index</div>
+      <ul>
+        {animals && (
+          <div>
+            {animals.map(({ id, name, species }) => (
+              <li key={id}>{name + " " + species.name}</li>
+            ))}
+          </div>
+        )}
+      </ul>
       <pre>{JSON.stringify(animals, null, 2)}</pre>
     </>
   );
