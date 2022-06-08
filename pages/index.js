@@ -1,10 +1,26 @@
 import axios from "axios";
+import Link from "next/link";
 
 const Index = ({ animals }) => {
   console.log(animals);
 
   return (
     <>
+      <ul>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+        <li>
+          <Link href="/cats">Cats</Link>
+        </li>
+        <li>
+          <Link href="/dogs">Dogs</Link>
+        </li>
+        <li>
+          <Link href="/about">About</Link>
+        </li>
+      </ul>
+
       <div>index</div>
       <ul>
         {animals && (
