@@ -1,5 +1,7 @@
 import axios from "axios";
 import NavBar from "../components/NavBar";
+import Banner from "../components/Banner";
+import About from "../components/About";
 
 const Index = ({ animals }) => {
   console.log(animals);
@@ -7,6 +9,8 @@ const Index = ({ animals }) => {
   return (
     <>
       <NavBar />
+      <Banner />
+      <About />
       {/* <ul>
         {animals && (
           <div>
