@@ -1,3 +1,7 @@
+@use "./base/fonts" as *;
+@use "./base/variables" as *;
+@use "./base/reset";
+
 body {
-    background-color: #EDE9E3;
+    background-color: $base;
 }

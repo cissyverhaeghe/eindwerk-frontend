@@ -1,28 +1,15 @@
 import axios from "axios";
-import Link from "next/link";
+import NavBar from "../components/NavBar";
 
 const Index = ({ animals }) => {
   console.log(animals);
 
   return (
     <>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/cats">Cats</Link>
-        </li>
-        <li>
-          <Link href="/dogs">Dogs</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-      </ul>
+      <NavBar />
 
       <div>index</div>
-      <ul>
+      {/* <ul>
         {animals && (
           <div>
             {animals.map(({ id, name, species }) => (
@@ -31,7 +18,7 @@ const Index = ({ animals }) => {
           </div>
         )}
       </ul>
-      <pre>{JSON.stringify(animals, null, 2)}</pre>
+      <pre>{JSON.stringify(animals, null, 2)}</pre> */}
     </>
   );
 };
