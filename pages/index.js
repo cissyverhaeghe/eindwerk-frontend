@@ -7,8 +7,6 @@ const Index = ({ animals }) => {
   return (
     <>
       <NavBar />
-
-      <div>index</div>
       {/* <ul>
         {animals && (
           <div>
