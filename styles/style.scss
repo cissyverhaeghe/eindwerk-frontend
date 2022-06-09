@@ -62,9 +62,8 @@ body {
         
 
         section {
-            padding-top: 100px;
+            padding: 100px 150px 100px 0px;
             width: 50%;
-            padding-right: 150px;
 
             h1 {
                 font-size: 2rem;
@@ -112,3 +111,16 @@ body {
         }   
     }
 }
+
+
+@media screen and (max-width: 900px) {
+    body .about {
+        width: 90%;
+
+        section {
+            padding-right: 5px;
+        }
+
+    }
+
+  }
