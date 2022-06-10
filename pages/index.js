@@ -4,6 +4,7 @@ import Banner from "../components/Banner";
 import About from "../components/About";
 import Cats from "../components/Cats";
 import Dogs from "../components/Dogs";
+import Footer from "../components/Footer";
 
 const Index = ({ cats, dogs }) => {
   console.log(dogs);
@@ -15,6 +16,7 @@ const Index = ({ cats, dogs }) => {
       <About />
       <Cats allCats={cats} />
       <Dogs allDogs={dogs} />
+      <Footer />
     </>
   );
 };

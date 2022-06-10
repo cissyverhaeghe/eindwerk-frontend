@@ -69,7 +69,7 @@ body {
     }
 
     .banner {
-        min-height: 300px;
+        min-height: 400px;
         background-color: $clay;
         background-image: url("../assets/photo-catdog-cropped-2.png");
         background-size: cover;
@@ -77,7 +77,7 @@ body {
         h1{
             font-size: 3.5rem;
             text-align:center;
-            padding-top: 100px;
+            padding-top: 175px;
             color: $base;
         }
     }   
@@ -106,7 +106,6 @@ body {
         aside {
             padding-top: 80px;
             width: 50%;
-            // padding-left: 200px;
             .imageholder {
             max-width: 300px;
             min-width: 200px;
@@ -144,9 +143,8 @@ body {
                 flex-wrap: wrap;
                 justify-content: space-between;
                 gap: 20px;
-                // flex: 1 1 300px;
                 margin-top: 40px;
-                padding-bottom: 150px;
+                padding-bottom: 100px;
 
                 .imageholder {
                     min-width: 275px;
@@ -171,20 +169,63 @@ body {
         }
     }
 
+    .footer {
+        background-color: $base;
+        padding-bottom: 50px;
+
+        .footercontainer {
+            margin: 0 auto;
+            width: 80%;
+            padding-top: 20px;
+
+            .icons {
+                text-align: center;
+                padding-top: 20px;
+                
+                svg{
+                    margin-left: 20px;
+                    font-size: 2em;
+                    &:hover {
+                        cursor:pointer;
+                    }
+                }
+                a{
+                    color: $darkgrey;
+                }
+
+            }
+            p {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 0.7rem;
+            }
+        }
+    }
+
 }
 
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1540px) {
+    body .animals .container .pictures {
+        
+            
+            .imageholder {
+                min-width: 200px;
+            }
+
+        }
+
+  }
+
+  @media screen and (max-width: 1100px) {
     body .animals .container .pictures {
         justify-content: center;
             
             .imageholder {
-                min-width: 280px;
+                min-width: 300px;
             }
 
         }
-    
-    
 
   }
 
@@ -197,6 +238,10 @@ body {
                 padding-right: 5px;
             }
     
+        }
+
+        .animals .container{
+            width: 90%;
         }
 
     } 
