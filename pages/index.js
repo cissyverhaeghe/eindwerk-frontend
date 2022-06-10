@@ -4,13 +4,13 @@ import Banner from "../components/Banner";
 import About from "../components/About";
 import Cats from "../components/Cats";
 
-const Index = ({ cats }) => {
+const Index = ({ cats, amount }) => {
   return (
     <>
       <NavBar />
       <Banner />
       <About />
-      <Cats cats={cats} />
+      <Cats allCats={cats} amount={amount} />
       {/* <ul>
         {animals && (
           <div>
@@ -32,7 +32,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      cats,
+      cats
     },
   };
 };
