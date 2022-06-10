@@ -4,15 +4,13 @@ import Banner from "../components/Banner";
 import About from "../components/About";
 import Cats from "../components/Cats";
 
-const Index = ({ animals }) => {
-  console.log(animals);
-
+const Index = ({ cats }) => {
   return (
     <>
       <NavBar />
       <Banner />
       <About />
-      <Cats />
+      <Cats cats={cats} />
       {/* <ul>
         {animals && (
           <div>
@@ -30,13 +28,11 @@ const Index = ({ animals }) => {
 export default Index;
 
 export const getServerSideProps = async () => {
-  const { data: animals } = await axios(
-    "http://127.0.0.1:8000/api/animals?page=1"
-  );
+  const { data: cats } = await axios("http://127.0.0.1:8000/api/cats");
 
   return {
     props: {
-      animals,
+      cats,
     },
   };
 };
