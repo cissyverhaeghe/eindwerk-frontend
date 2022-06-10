@@ -1,29 +1,39 @@
 import Image from "next/image";
-import axios from "axios";
 import Link from "next/link";
 
-const Cats = ({ cats }) => {
-  console.log(cats);
+const Dogs = ({ allDogs }) => {
+  console.log(allDogs);
+
+  let dogs = allDogs.slice(0, 4);
 
   return (
-    <div className="animals">
+    <div className="animals dogs">
       <div className="container">
         <div className="above">
+          {dogs.length > 0 && (
+            <Link href="/dogs">
+              <button>+ See all</button>
+            </Link>
+          )}
           <div className="titles">
-            <h1>Our Cats</h1>
-            <h2>There are 55 cats to adopt</h2>
+            <h1>Our Dogs</h1>
+            {dogs.length > 0 ? (
+              <h2>
+                There {allDogs.length > 1 ? "are " : "is "} {allDogs.length}{" "}
+                {allDogs.length > 1 ? "dogs" : "dog"} to adopt
+              </h2>
+            ) : (
+              <h2>There are no dogs to adopt</h2>
+            )}
           </div>
-          <Link href="/cats">
-            <button>+ See all</button>
-          </Link>
         </div>
         <div className="pictures">
-          {cats &&
-            cats.map(({ id, name, photo }) => (
+          {dogs &&
+            dogs.map(({ id, name, photo }) => (
               <div key={id} className="imageholder">
                 <Image
-                  src="/cat1.png"
-                  alt="cat"
+                  src={"/" + photo}
+                  alt="dog"
                   layout="responsive"
                   width={300}
                   height={300}
@@ -37,4 +47,4 @@ const Cats = ({ cats }) => {
   );
 };
 
-export default Cats;
+export default Dogs;

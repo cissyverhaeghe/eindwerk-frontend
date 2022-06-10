@@ -3,8 +3,6 @@ import axios from "axios";
 import Link from "next/link";
 
 const Cats = ({ allCats }) => {
-  console.log(allCats.length);
-
   let cats = allCats.slice(0, 4);
 
   return (
@@ -13,11 +11,20 @@ const Cats = ({ allCats }) => {
         <div className="above">
           <div className="titles">
             <h1>Our Cats</h1>
-            <h2>There are {allCats.length} cats to adopt</h2>
+            {cats.length > 0 ? (
+              <h2>
+                There {allCats.length > 1 ? "are " : "is "} {allCats.length}{" "}
+                {allCats.length > 1 ? "cats" : "cat"} to adopt
+              </h2>
+            ) : (
+              <h2>There are no cats to adopt</h2>
+            )}
           </div>
-          <Link href="/cats">
-            <button>+ See all</button>
-          </Link>
+          {cats.length > 0 && (
+            <Link href="/cats">
+              <button>+ See all</button>
+            </Link>
+          )}
         </div>
         <div className="pictures">
           {cats &&
