@@ -1,7 +1,7 @@
-const Banner = () => {
+const Banner = ({title}) => {
   return (
     <div className="banner">
-      <h1>LAB ANIMAL SEARCHES HOME</h1>
+      <h1>{title}</h1>
     </div>
   );
 };

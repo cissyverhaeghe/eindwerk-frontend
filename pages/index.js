@@ -12,7 +12,7 @@ const Index = ({ cats, dogs }) => {
   return (
     <>
       <NavBar />
-      <Banner />
+      <Banner title="LAB ANIMAL SEARCHES HOME" />
       <About />
       <Cats allCats={cats} />
       <Dogs allDogs={dogs} />

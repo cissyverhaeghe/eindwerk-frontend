@@ -1,5 +1,4 @@
 import Image from "next/image";
-import axios from "axios";
 import Link from "next/link";
 
 const Cats = ({ allCats }) => {
@@ -21,7 +20,7 @@ const Cats = ({ allCats }) => {
             )}
           </div>
           {cats.length > 0 && (
-            <Link href="/cats">
+            <Link href="/cats/cats">
               <button>+ See all</button>
             </Link>
           )}

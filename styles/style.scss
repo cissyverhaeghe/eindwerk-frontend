@@ -153,7 +153,7 @@ body {
                         padding-top: 20px;
                         text-transform: uppercase;
                     }
-                    }
+                }
             }
 
             
@@ -198,6 +198,50 @@ body {
                 text-align: center;
                 margin-top: 10px;
                 font-size: 0.7rem;
+            }
+        }
+    }
+
+    .display {
+        min-height: 500px;
+        display: flex;
+
+        .filters {
+            width: 20%;
+            padding: 30px;
+            padding-top: 100px;
+
+            .filter {
+                margin-bottom: 25px;
+                h2 {
+                    margin-bottom: 10px;
+                }
+                button {
+                    margin: 5px 5px 0px 0px;
+                }
+
+            }
+
+            
+        }
+
+        .animalGrid {
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 100px 70px; 
+            gap: 100px;
+            row-gap: 50px;
+            justify-content: space-between;
+            .imageholder{
+                min-width: 25%;
+
+                p {
+                    text-align: center;
+                    text-transform: uppercase;
+                    margin-top: 20px;
+
+                }
             }
         }
     }
