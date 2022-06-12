@@ -4,48 +4,25 @@ import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useFilter from "../../hooks/[useFilter]";
 
 const Cats = ({ cats, breeds: { breeds } }) => {
-  const [filteredData, setFilteredData] = useState(cats);
   const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedSex, setSelectedSex] = useState("");
   const [selectedAge, setSelectedAge] = useState("");
   const [selectedNeutered, setSelectedNeutered] = useState("");
 
-  useEffect(() => {
-    const filterByBreed = (filteredData) => {
-      if (!selectedBreed) {
-        return filteredData;
-      }
-
-      const filteredCats = filteredData.filter(
-        (cat) => cat.breed_id === selectedBreed.toString()
-      );
-
-      return filteredCats;
-    };
-
-    const filterBySex = (filteredData) => {
-      console.log(filteredData);
-      if (!selectedSex) {
-        return filteredData;
-      }
-      const filteredCats = filteredData.filter(
-        (cat) => cat.sex_id === selectedSex.toString()
-      );
-
-      return filteredCats;
-    };
-
-    let filteredData = filterByBreed(cats);
-    filteredData = filterBySex(filteredData);
-    setFilteredData(filteredData);
-  }, [selectedBreed, selectedSex, selectedAge, selectedNeutered, cats]);
+  const { filteredData } = useFilter(
+    selectedBreed,
+    selectedSex,
+    selectedAge,
+    selectedNeutered,
+    cats
+  );
 
   const handleBreedChange = (id, e) => {
     id === selectedBreed ? setSelectedBreed("") : setSelectedBreed(id);
-    console.log(e.target.className);
     e.target.className === "selected"
       ? (e.target.className = "")
       : (e.target.className = "selected");
@@ -53,7 +30,20 @@ const Cats = ({ cats, breeds: { breeds } }) => {
 
   const handleSexChange = (id, e) => {
     id === selectedSex ? setSelectedSex("") : setSelectedSex(id);
-    console.log(e.target.className);
+    e.target.className === "selected"
+      ? (e.target.className = "")
+      : (e.target.className = "selected");
+  };
+
+  const handleAgeChange = (id, e) => {
+    id === selectedAge ? setSelectedAge("") : setSelectedAge(id);
+    e.target.className === "selected"
+      ? (e.target.className = "")
+      : (e.target.className = "selected");
+  };
+
+  const handleNeuteredChange = (id, e) => {
+    id === selectedNeutered ? setSelectedNeutered("") : setSelectedNeutered(id);
     e.target.className === "selected"
       ? (e.target.className = "")
       : (e.target.className = "selected");
@@ -81,14 +71,14 @@ const Cats = ({ cats, breeds: { breeds } }) => {
           </div>
           <div className="filter">
             <h2>Age</h2>
-            <button onClick={() => setSelectedAge(2)}>Kitten</button>
-            <button onClick={() => setSelectedAge(3)}>Adult</button>
-            <button onClick={() => setSelectedAge(4)}>Senior</button>
+            <button onClick={(e) => handleAgeChange(2, e)}>Kitten</button>
+            <button onClick={(e) => handleAgeChange(3, e)}>Adult</button>
+            <button onClick={(e) => handleAgeChange(4, e)}>Senior</button>
           </div>
           <div className="filter">
             <h2>Neutered</h2>
-            <button onClick={() => setSelectedNeutered(1)}>Yes</button>
-            <button onClick={() => setSelectedNeutered(0)}>No</button>
+            <button onClick={(e) => handleNeuteredChange(1, e)}>Yes</button>
+            <button onClick={(e) => handleNeuteredChange(0, e)}>No</button>
           </div>
         </div>
         <div className="animalGrid">
