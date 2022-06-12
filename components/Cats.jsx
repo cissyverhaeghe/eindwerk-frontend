@@ -20,7 +20,7 @@ const Cats = ({ allCats }) => {
             )}
           </div>
           {cats.length > 0 && (
-            <Link href="/cats/cats">
+            <Link href="/cats">
               <button>+ See all</button>
             </Link>
           )}
@@ -28,16 +28,18 @@ const Cats = ({ allCats }) => {
         <div className="pictures">
           {cats &&
             cats.map(({ id, name, photo }) => (
-              <div key={id} className="imageholder">
-                <Image
-                  src={"/" + photo}
-                  alt="cat"
-                  layout="responsive"
-                  width={300}
-                  height={300}
-                />
-                <p>{name}</p>
-              </div>
+              <Link key={id} href={`cats/cat/${id}`}>
+                <div className="imageholder">
+                  <Image
+                    src={"/" + photo}
+                    alt="cat"
+                    layout="responsive"
+                    width={300}
+                    height={300}
+                  />
+                  <p>{name}</p>
+                </div>
+              </Link>
             ))}
         </div>
       </div>

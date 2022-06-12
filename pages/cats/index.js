@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import useFilter from "../../hooks/[useFilter]";
 
-const Cats = ({ cats, breeds: { breeds } }) => {
+const Index = ({ cats, breeds: { breeds } }) => {
   const [selectedBreed, setSelectedBreed] = useState("");
   const [selectedSex, setSelectedSex] = useState("");
   const [selectedAge, setSelectedAge] = useState("");
@@ -88,16 +88,18 @@ const Cats = ({ cats, breeds: { breeds } }) => {
           )}
           {filteredData.length > 0 &&
             filteredData.map(({ id, name, photo }) => (
-              <div key={id} className="imageholder">
-                <Image
-                  src={"/" + photo}
-                  alt="cat"
-                  width={300}
-                  height={300}
-                  layout="responsive"
-                />
-                <p>{name}</p>
-              </div>
+              <Link key={id} href={`cats/cat/${id}`}>
+                <div className="imageholder">
+                  <Image
+                    src={"/" + photo}
+                    alt="cat"
+                    width={300}
+                    height={300}
+                    layout="responsive"
+                  />
+                  <p>{name}</p>
+                </div>
+              </Link>
             ))}
         </div>
       </div>
@@ -106,7 +108,7 @@ const Cats = ({ cats, breeds: { breeds } }) => {
   );
 };
 
-export default Cats;
+export default Index;
 
 export const getServerSideProps = async () => {
   const { data: cats } = await axios("http://127.0.0.1:8000/api/cats");
