@@ -1,7 +1,32 @@
 import axios from "axios";
+import NavBar from "../../../components/NavBar";
+import Banner from "../../../components/Banner";
+import Footer from "../../../components/Footer";
+import Image from "next/image";
 
 const Detail = ({ cat }) => {
-  return <div>{cat.name}</div>;
+  return (
+    <>
+      <NavBar />
+      <Banner title={cat.name} />
+
+      <div className="details">
+        <div className="picture">
+          <div className="imageholder">
+            <Image
+              src={"/" + cat.photo}
+              alt="cat"
+              width={300}
+              height={300}
+              layout="responsive"
+            />
+          </div>
+        </div>
+        <div className="text"></div>
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default Detail;

@@ -80,6 +80,7 @@ body {
             text-align:center;
             padding-top: 175px;
             color: $base;
+            text-transform: uppercase;
         }
     }   
 
@@ -273,6 +274,23 @@ body {
             content: "";
             flex:auto;
         }
+        }
+    }
+
+    .details {
+        display: flex;
+        background-color: $darkbeige;
+        min-height: 200px;
+
+        .picture {
+            width: 50%;
+            background-color: $clay;
+            padding: 100px 150px;
+        }
+
+        .text {
+            width: 50%;
+            background-color: $darkgrey;
         }
     }
 
