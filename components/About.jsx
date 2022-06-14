@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -15,8 +16,16 @@ const About = () => {
           Corporis illo quo temporibus qui magnam. Inventore quia voluptate
           sequi eligendi quidem. Accusamus sint nemo corporis.
         </p>
-        <button>More</button>
-        <button>Donate</button>
+        <Link href="/about">
+          <button>More</button>
+        </Link>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="http://www.paypal.com"
+        >
+          <button>Donate</button>
+        </a>
       </section>
       <aside>
         <div className="imageholder">

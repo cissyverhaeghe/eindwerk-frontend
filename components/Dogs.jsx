@@ -30,16 +30,18 @@ const Dogs = ({ allDogs }) => {
         <div className="pictures">
           {dogs &&
             dogs.map(({ id, name, photo }) => (
-              <div key={id} className="imageholder">
-                <Image
-                  src={"/" + photo}
-                  alt="dog"
-                  layout="responsive"
-                  width={300}
-                  height={300}
-                />
-                <p>{name}</p>
-              </div>
+              <Link key={id} href={`dogs/dog/${id}`}>
+                <div key={id} className="imageholder">
+                  <Image
+                    src={"/" + photo}
+                    alt="dog"
+                    layout="responsive"
+                    width={300}
+                    height={300}
+                  />
+                  <p>{name}</p>
+                </div>
+              </Link>
             ))}
         </div>
       </div>

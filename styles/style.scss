@@ -279,19 +279,79 @@ body {
 
     .details {
         display: flex;
-        background-color: $darkbeige;
         min-height: 200px;
 
         .picture {
             width: 50%;
-            background-color: $clay;
             padding: 100px 150px;
         }
 
         .text {
             width: 50%;
-            background-color: $darkgrey;
+            padding: 100px 150px;
+
+            h1 {
+                text-transform: uppercase;
+                margin-bottom: 20px;
+            }
+
+            table {
+                border: 1px solid $darkgrey;
+                width: 100%;
+                
+               
+                tbody {
+
+                    tr{ 
+                        &:nth-of-type(1), &:nth-last-of-type(3), &:last-of-type{
+                            background-color: $base;
+                        }
+                    }
+
+                    td {
+                        border-bottom: 1px solid $darkgrey;
+                        padding: 20px;
+
+                    }
+                }
+            }
+
+            h2 {
+                margin-top: 30px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                a {
+                    text-decoration: none;
+                    cursor: pointer;
+                    color: $darkgrey;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
+    }
+
+    
+    .page {
+        section {
+            width: 80%;
+            line-height: 1.5rem;
+        }
+    }
+
+    .mission {
+        background-color: $base;
+        width: 100%;
+        section {
+            width: 80%;
+            line-height: 1.5rem;
+        }
+        padding-bottom: 30px;
     }
 
 }
