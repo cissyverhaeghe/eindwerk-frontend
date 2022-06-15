@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import moment from "moment";
+import Link from "next/link";
 
 const AdoptionForm = ({ animal: { id, name, photo } }) => {
   const [message, setMessage] = useState("");
@@ -92,7 +93,9 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
         {submitted && (
           <>
             <p>We have received your request successfully!</p>
-            <button>Go to overview</button>
+            <Link href={"/overview"}>
+              <button>Go to overview</button>
+            </Link>
           </>
         )}
       </section>

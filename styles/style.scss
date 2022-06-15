@@ -39,6 +39,27 @@ body {
         font-weight: bold;
     }
 
+    table {
+        border: 1px solid $darkgrey;
+        width: 100%;
+        
+       
+        tbody {
+
+            tr{ 
+                &:nth-of-type(1), &:nth-last-of-type(3), &:last-of-type{
+                    background-color: $base;
+                }
+            }
+
+            td {
+                border-bottom: 1px solid $darkgrey;
+                padding: 20px;
+
+            }
+        }
+    }
+
 
     .navbar {
         display: flex;
@@ -300,26 +321,7 @@ body {
                 margin-bottom: 20px;
             }
 
-            table {
-                border: 1px solid $darkgrey;
-                width: 100%;
-                
-               
-                tbody {
-
-                    tr{ 
-                        &:nth-of-type(1), &:nth-last-of-type(3), &:last-of-type{
-                            background-color: $base;
-                        }
-                    }
-
-                    td {
-                        border-bottom: 1px solid $darkgrey;
-                        padding: 20px;
-
-                    }
-                }
-            }
+            
 
             h2 {
                 margin-top: 30px;
@@ -418,6 +420,55 @@ body {
                 max-height: 200px;
                 max-width: 300px;
             }
+        }
+    }
+
+    .overview{
+        padding: 30px;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+       
+        
+
+        table {
+
+            margin: 0 auto;
+            width: 80%;
+
+            thead {
+
+                border-bottom: 1px solid $darkgrey;
+                font-weight: bold;
+
+
+                td {
+                    padding: 20px;
+
+
+                    &:last-of-type, &:nth-last-of-type(1){
+                        width:3%;
+                        padding: 5px;
+                    }
+                }
+                
+            }
+
+            
+            tbody {
+
+            
+                td {
+                    &:last-of-type, &:nth-last-of-type(2){
+                        width:1%;
+                        padding: 10px 15px 10px 5px;
+                    }
+                }
+            }
+            
         }
     }
 
