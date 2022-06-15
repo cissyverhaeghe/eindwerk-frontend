@@ -389,6 +389,8 @@ body {
                     border-bottom: 2px solid $darkgrey;
                     resize: none;
                     padding: 5px;
+                    font-family: Montserrat;
+                    line-height: 1.4;
                 }
                 button {
                     display: block;
@@ -397,6 +399,13 @@ body {
             }
             p {
                 margin-top: 40px;
+                
+                &.error {
+                    color: $clay;
+                    margin-top: 5px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
             }
         }
 

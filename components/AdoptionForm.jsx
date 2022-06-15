@@ -1,36 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
+import moment from "moment";
 
 const AdoptionForm = ({ animal: { id, name, photo } }) => {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  console.log(submitted);
+  const [triedToApply, setTriedToApply] = useState(false);
+  const [charErrorMessage, setCharErrorMessage] = useState(false);
+  const [apiErrorMessage, setAPIErrorMessage] = useState(false);
+
+  const date = moment().format();
+  console.log(date);
+
+  useEffect(() => {
+    if (triedToApply) {
+      if (message.length > 5 && message.length < 500) {
+        setCharErrorMessage(false);
+      } else setCharErrorMessage(true);
+    }
+  }, [message, triedToApply]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    (async () => {
-      try {
-        const body = {
-          date: "2022-06-14T15:06:21.407Z",
-          message: message,
-          animal_id: id,
-          user_id: 1,
-          status_id: 1,
-        };
-        const data = await axios("http://127.0.0.1:8000/api/adoptionrequest", {
-          method: "POST",
-          data: JSON.stringify(body),
-        });
-        console.log(data);
-        if (data) {
-          setSubmitted(true);
+    if (message.length < 5 || message.length > 500) {
+      setTriedToApply(true);
+      setCharErrorMessage(true);
+    } else {
+      setCharErrorMessage(false);
+      (async () => {
+        try {
+          const body = {
+            date: date,
+            message: message,
+            animal_id: id,
+            user_id: 1,
+            status_id: 1,
+          };
+          const data = await axios(
+            "http://127.0.0.1:8000/api/adoptionrequest",
+            {
+              method: "POST",
+              data: JSON.stringify(body),
+            }
+          );
+          console.log(data);
+          if (data) {
+            setSubmitted(true);
+            setAPIErrorMessage(false);
+          }
+        } catch (error) {
+          console.log(error);
+          setAPIErrorMessage(true);
         }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+      })();
+    }
   };
 
   return (
@@ -47,7 +71,20 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Message"
+                maxLength="500"
+                minLength="5"
+                required
               />
+              {charErrorMessage && (
+                <p className="error">
+                  Your message should be between 5 and 500 characters
+                </p>
+              )}
+              {apiErrorMessage && (
+                <p className="error">
+                  Something went wrong. Please try again later.
+                </p>
+              )}
               <button onClick={handleFormSubmit}>Submit request</button>
             </form>
           </>
