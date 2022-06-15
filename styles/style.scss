@@ -2,6 +2,11 @@
 @use "./base/variables" as *;
 @use "./base/reset";
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $olive;
+    font-family: Montserrat;
+  }
+
 body {
     background-color: $beige;
     font-family: Montserrat;
@@ -352,6 +357,59 @@ body {
             line-height: 1.5rem;
         }
         padding-bottom: 30px;
+    }
+
+    .adoption {
+        display: flex;
+        padding-top: 40px;
+        text-align: center;
+        section {
+            padding: 30px;
+            width: 50%;
+            min-height: 400px;
+
+            h2 {
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            form {
+                margin-top: 20px;
+                .invisible {
+                    display: none;
+                }
+
+                textarea {
+                    margin-bottom: 20px;
+                    margin-top: 10px;
+                    width: 60%;
+                    min-height:150px;
+                    background: transparent;
+                    border: none;
+                    border-bottom: 2px solid $darkgrey;
+                    resize: none;
+                    padding: 5px;
+                }
+                button {
+                    display: block;
+                    margin: 0 auto;
+                }
+            }
+            p {
+                margin-top: 40px;
+            }
+        }
+
+        aside {
+            padding: 30px;
+            width:50%;
+            
+            .imageholder{
+                margin: 0 auto;
+                max-height: 200px;
+                max-width: 300px;
+            }
+        }
     }
 
 }
