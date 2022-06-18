@@ -1,31 +1,25 @@
 import axios from "axios";
-import NavBar from "../components/NavBar";
-import Banner from "../components/Banner";
-import Footer from "../components/Footer";
+import NavBar from "../../components/NavBar";
+import Banner from "../../components/Banner";
+import Footer from "../../components/Footer";
 
 import Link from "next/link";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
 
-const overview = ({ adoptionrequests }) => {
-  console.log(adoptionrequests);
+const Overview = ({ adoptionrequests }) => {
+  const [adoptionRequests, setAdoptionRequests] = useState(adoptionrequests);
 
   const notify = () => toast("Your request has been deleted successfully");
 
-  function confirmAction() {
+  useEffect(() => {}, [adoptionRequests]);
+
+  function confirmAction(id) {
     let confirmAction = confirm(
       "Are you sure you want to delete this request?"
     );
-    if (confirmAction) {
-      notify();
-    }
-  }
-
-  const handleDelete = (e, id) => {
-    e.preventDefault();
-    confirmAction();
-
     if (confirmAction) {
       (async () => {
         try {
@@ -36,12 +30,32 @@ const overview = ({ adoptionrequests }) => {
             }
           );
           console.log(data);
-          location.reload();
+          getAdoptionRequests();
         } catch (error) {
           console.log(error);
         }
       })();
+      notify();
     }
+  }
+
+  function getAdoptionRequests() {
+    (async () => {
+      try {
+        const {
+          data: { adoptionrequests },
+        } = await axios("http://127.0.0.1:8000/api/users/1");
+        console.log(adoptionrequests);
+        setAdoptionRequests(adoptionrequests);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }
+
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    confirmAction(id);
   };
 
   return (
@@ -62,7 +76,7 @@ const overview = ({ adoptionrequests }) => {
             </tr>
           </thead>
           <tbody>
-            {adoptionrequests.map(({ id, dateString, animal }) => (
+            {adoptionRequests.map(({ id, dateString, animal }) => (
               <tr key={id}>
                 <td>{id}</td>
                 <td>{dateString}</td>
@@ -97,7 +111,7 @@ const overview = ({ adoptionrequests }) => {
   );
 };
 
-export default overview;
+export default Overview;
 
 export const getServerSideProps = async () => {
   const {
