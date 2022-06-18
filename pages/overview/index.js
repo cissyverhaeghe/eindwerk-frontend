@@ -85,7 +85,9 @@ const Overview = ({ adoptionrequests }) => {
                 </td>
                 <td>Pending</td>
                 <td>
-                  <AiOutlineSearch />
+                  <Link href={`/overview/request/${id}`}>
+                    <AiOutlineSearch />
+                  </Link>
                 </td>
                 <td>
                   <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
