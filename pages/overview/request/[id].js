@@ -4,34 +4,51 @@ import NavBar from "../../../components/NavBar";
 import Banner from "../../../components/Banner";
 import AdoptionForm from "../../../components/AdoptionForm";
 import Footer from "../../../components/Footer";
+import Link from "next/link";
 
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 const Request = ({ adoptionrequest }) => {
   console.log(adoptionrequest);
   const router = useRouter();
+  const userCtxt = useContext(UserContext);
+  let loggedIn = userCtxt.isLoggedIn;
   return (
     <>
       <NavBar />
       <Banner title="ADOPT" />
-      <div className="adoption preview">
-        <section>
-          <h1>Adoption Request #{adoptionrequest.id}</h1>
-          <h2>You filed a request to adopt {adoptionrequest.animal.name}</h2>
+      {!loggedIn && (
+        <>
+          <div className="loggedout">
+            <h2>You have to be logged in to see this page.</h2>
+            <Link href="/login">
+              <button>Go to login</button>
+            </Link>
+          </div>
+        </>
+      )}
+      {loggedIn && (
+        <div className="adoption preview">
+          <section>
+            <h1>Adoption Request #{adoptionrequest.id}</h1>
+            <h2>You filed a request to adopt {adoptionrequest.animal.name}</h2>
 
-          <form>
-            <textarea
-              placeholder="Message"
-              maxLength="500"
-              minLength="5"
-              readOnly
-            >
-              {adoptionrequest.message}
-            </textarea>
-          </form>
-          <button onClick={() => router.back()}>Go back</button>
-        </section>
-      </div>
+            <form>
+              <textarea
+                placeholder="Message"
+                maxLength="500"
+                minLength="5"
+                readOnly
+              >
+                {adoptionrequest.message}
+              </textarea>
+            </form>
+            <button onClick={() => router.back()}>Go back</button>
+          </section>
+        </div>
+      )}
 
       <Footer />
     </>

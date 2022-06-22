@@ -116,10 +116,12 @@ const Overview = () => {
       )}
       {!loggedIn && (
         <>
-          <p>You have to be logged in to see this page</p>
-          <Link href="/login">
-            <button>Go to login</button>
-          </Link>
+          <div className="loggedout">
+            <h2>You have to be logged in to see this page.</h2>
+            <Link href="/login">
+              <button>Go to login</button>
+            </Link>
+          </div>
         </>
       )}
 

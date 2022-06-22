@@ -7,6 +7,7 @@ import nookies from "nookies";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,38 +42,57 @@ const Login = () => {
     <>
       <NavBar />
       <Banner title="LOGIN" />
-      {!loggedIn && (
-        <div>
-          <form>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="text"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-            <button onClick={handleFormSubmit}>Login</button>
-          </form>
-          {error && <p>Invalid Credentials</p>}
+      <div className="login">
+        {!loggedIn && (
+          <>
+            <aside>
+              <h1>Welcome!</h1>
+              <h2>Let&apos;s login!</h2>
+              <form>
+                <input
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                ></input>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                ></input>
+                <button onClick={handleFormSubmit}>Login</button>
+              </form>
+              {error && <p>Invalid Credentials</p>}
+            </aside>
+          </>
+        )}
+        {loggedIn && (
+          <>
+            <aside>
+              <h1>Welcome, {userCtxt.user.firstname}!</h1>
+              <h2>You are logged in</h2>
+              <button onClick={() => router.back()}>Go back</button>
+              <Link href={"/overview"}>
+                <button>Go to overview</button>
+              </Link>
+            </aside>
+          </>
+        )}
+        <div className="picture">
+          <div className="imageholder">
+            <Image
+              src="/cat1.png"
+              alt="cat"
+              layout="responsive"
+              width={300}
+              height={300}
+            />
+          </div>
         </div>
-      )}
-      {loggedIn && (
-        <>
-          <p>Welcome, {userCtxt.user.firstname}!</p>
-          <p>You are logged in</p>
-          <button onClick={() => router.back()}>Go back</button>
-          <Link href={"/overview"}>
-            <button>Go to overview</button>
-          </Link>
-        </>
-      )}
+      </div>
     </>
   );
 };
