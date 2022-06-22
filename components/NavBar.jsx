@@ -5,7 +5,9 @@ import { UserContext } from "../context/UserContext";
 const NavBar = () => {
   const userCtxt = useContext(UserContext);
   let loggedIn = userCtxt.isLoggedIn;
-  let userName = userCtxt.user.firstname;
+  const logoutHandler = () => {
+    userCtxt.logout();
+  };
   return (
     <div className="navbar">
       <div className="logo">
@@ -31,7 +33,7 @@ const NavBar = () => {
             <Link href="/login">Login</Link>
           )}
         </li>
-        {loggedIn && <li>Logout</li>}
+        {loggedIn && <li onClick={logoutHandler}>Logout</li>}
       </ul>
     </div>
   );

@@ -6,12 +6,15 @@ import { parseCookies, setCookie, destroyCookie } from "nookies";
 import nookies from "nookies";
 import { UserContext } from "../context/UserContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const userCtxt = useContext(UserContext);
+  let loggedIn = userCtxt.isLoggedIn;
+  const router = useRouter();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -38,29 +41,38 @@ const Login = () => {
     <>
       <NavBar />
       <Banner title="LOGIN" />
-      <div>
-        <form>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-          <button onClick={handleFormSubmit}>Login</button>
-        </form>
-        {error && <p>Invalid Credentials</p>}
-        <Link href={"/overview"}>
-          <button>Go to overview</button>
-        </Link>
-      </div>
+      {!loggedIn && (
+        <div>
+          <form>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+            <button onClick={handleFormSubmit}>Login</button>
+          </form>
+          {error && <p>Invalid Credentials</p>}
+        </div>
+      )}
+      {loggedIn && (
+        <>
+          <p>Welcome, {userCtxt.user.firstname}!</p>
+          <p>You are logged in</p>
+          <button onClick={() => router.back()}>Go back</button>
+          <Link href={"/overview"}>
+            <button>Go to overview</button>
+          </Link>
+        </>
+      )}
     </>
   );
 };

@@ -14,7 +14,8 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
 
   const date = moment().format();
   console.log(date);
-  const { user } = useContext(UserContext);
+  const userCtxt = useContext(UserContext);
+  let loggedIn = userCtxt.isLoggedIn;
 
   useEffect(() => {
     if (triedToApply) {
@@ -37,7 +38,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
             date: date,
             message: message,
             animal_id: id,
-            user_id: user.id,
+            user_id: userCtxt.user.id,
             status_id: 1,
           };
           const data = await axios(
@@ -65,8 +66,15 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
       <section>
         <h1>Adoption Request</h1>
         <h2>You are filing a request to adopt {name}.</h2>
-
-        {!submitted && (
+        {!loggedIn && (
+          <>
+            <p>You have to be logged in to see this page</p>
+            <Link href="/login">
+              <button>Go to login</button>
+            </Link>
+          </>
+        )}
+        {!submitted && loggedIn && (
           <>
             <p>Please let us know why you would like to adopt {name}.</p>
             <form>

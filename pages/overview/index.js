@@ -12,13 +12,14 @@ import { useContext, useEffect, useState } from "react";
 
 const Overview = () => {
   const [adoptionRequests, setAdoptionRequests] = useState("");
-  const { user } = useContext(UserContext);
+  const userCtxt = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  console.log(user);
+  let loggedIn = userCtxt.isLoggedIn;
+  console.log(userCtxt.user);
 
   const notify = () => toast("Your request has been deleted successfully");
   useEffect(() => {
-    getAdoptionRequests(user.id);
+    getAdoptionRequests(userCtxt.user.id);
   }, []);
 
   function confirmAction(id) {
@@ -35,7 +36,7 @@ const Overview = () => {
             }
           );
           console.log(data);
-          getAdoptionRequests(user.id);
+          getAdoptionRequests(userCtxt.user.id);
         } catch (error) {
           console.log(error);
         }
@@ -70,47 +71,58 @@ const Overview = () => {
     <>
       <NavBar />
       <Banner title="OVERVIEW" />
-      <div className="overview">
-        <h2>Below you can find your adoption requests</h2>
-        {!adoptionRequests && <p>Loading...</p>}
-        {adoptionRequests.length === 0 && (
-          <p>You have no pending adoptionrequests</p>
-        )}
-        {adoptionRequests.length > 0 && (
-          <table>
-            <thead>
-              <tr>
-                <td>Request#</td>
-                <td>Request date</td>
-                <td>Animal name</td>
-                <td>Status</td>
-                <td></td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              {adoptionRequests.map(({ id, dateString, animal }) => (
-                <tr key={id}>
-                  <td>{id}</td>
-                  <td>{dateString}</td>
-                  <td>
-                    <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
-                  </td>
-                  <td>Pending</td>
-                  <td>
-                    <Link href={`/overview/request/${id}`}>
-                      <AiOutlineSearch />
-                    </Link>
-                  </td>
-                  <td>
-                    <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
-                  </td>
+      {loggedIn && (
+        <div className="overview">
+          <h2>Below you can find your adoption requests</h2>
+          {loading && <p>Loading...</p>}
+          {!loading && adoptionRequests.length === 0 && (
+            <p>You have no pending adoptionrequests</p>
+          )}
+          {adoptionRequests.length > 0 && (
+            <table>
+              <thead>
+                <tr>
+                  <td>Request#</td>
+                  <td>Request date</td>
+                  <td>Animal name</td>
+                  <td>Status</td>
+                  <td></td>
+                  <td></td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+              </thead>
+              <tbody>
+                {adoptionRequests.map(({ id, dateString, animal }) => (
+                  <tr key={id}>
+                    <td>{id}</td>
+                    <td>{dateString}</td>
+                    <td>
+                      <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
+                    </td>
+                    <td>Pending</td>
+                    <td>
+                      <Link href={`/overview/request/${id}`}>
+                        <AiOutlineSearch />
+                      </Link>
+                    </td>
+                    <td>
+                      <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+      {!loggedIn && (
+        <>
+          <p>You have to be logged in to see this page</p>
+          <Link href="/login">
+            <button>Go to login</button>
+          </Link>
+        </>
+      )}
+
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
