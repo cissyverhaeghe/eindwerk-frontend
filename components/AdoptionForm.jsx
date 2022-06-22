@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import moment from "moment";
 import Link from "next/link";
+import { UserContext } from "../context/UserContext";
 
 const AdoptionForm = ({ animal: { id, name, photo } }) => {
   const [message, setMessage] = useState("");
@@ -13,6 +14,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
 
   const date = moment().format();
   console.log(date);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (triedToApply) {
@@ -35,7 +37,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
             date: date,
             message: message,
             animal_id: id,
-            user_id: 1,
+            user_id: user.id,
             status_id: 1,
           };
           const data = await axios(

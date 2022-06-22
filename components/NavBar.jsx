@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const NavBar = () => {
+  const userCtxt = useContext(UserContext);
+  let loggedIn = userCtxt.isLoggedIn;
+  let userName = userCtxt.user.firstname;
   return (
     <div className="navbar">
       <div className="logo">
@@ -20,8 +25,13 @@ const NavBar = () => {
           <Link href="/about">About</Link>
         </li>
         <li>
-          <Link href="/login">Login</Link>
+          {loggedIn ? (
+            <Link href="/overview">Adoptionrequests</Link>
+          ) : (
+            <Link href="/login">Login</Link>
+          )}
         </li>
+        {loggedIn && <li>Logout</li>}
       </ul>
     </div>
   );

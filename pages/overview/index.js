@@ -2,19 +2,24 @@ import axios from "axios";
 import NavBar from "../../components/NavBar";
 import Banner from "../../components/Banner";
 import Footer from "../../components/Footer";
+import { UserContext } from "../../context/UserContext";
 
 import Link from "next/link";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
-const Overview = ({ adoptionrequests }) => {
-  const [adoptionRequests, setAdoptionRequests] = useState(adoptionrequests);
+const Overview = () => {
+  const [adoptionRequests, setAdoptionRequests] = useState("");
+  const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  console.log(user);
 
   const notify = () => toast("Your request has been deleted successfully");
-
-  useEffect(() => {}, [adoptionRequests]);
+  useEffect(() => {
+    getAdoptionRequests(user.id);
+  }, []);
 
   function confirmAction(id) {
     let confirmAction = confirm(
@@ -30,7 +35,7 @@ const Overview = ({ adoptionrequests }) => {
             }
           );
           console.log(data);
-          getAdoptionRequests();
+          getAdoptionRequests(user.id);
         } catch (error) {
           console.log(error);
         }
@@ -39,15 +44,18 @@ const Overview = ({ adoptionrequests }) => {
     }
   }
 
-  function getAdoptionRequests() {
+  function getAdoptionRequests(id) {
     (async () => {
+      setLoading(true);
       try {
         const {
           data: { adoptionrequests },
-        } = await axios("http://127.0.0.1:8000/api/users/1");
+        } = await axios(`http://127.0.0.1:8000/api/users/${id}`);
         console.log(adoptionrequests);
         setAdoptionRequests(adoptionrequests);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     })();
@@ -64,38 +72,44 @@ const Overview = ({ adoptionrequests }) => {
       <Banner title="OVERVIEW" />
       <div className="overview">
         <h2>Below you can find your adoption requests</h2>
-        <table>
-          <thead>
-            <tr>
-              <td>Request#</td>
-              <td>Request date</td>
-              <td>Animal name</td>
-              <td>Status</td>
-              <td></td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {adoptionRequests.map(({ id, dateString, animal }) => (
-              <tr key={id}>
-                <td>{id}</td>
-                <td>{dateString}</td>
-                <td>
-                  <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
-                </td>
-                <td>Pending</td>
-                <td>
-                  <Link href={`/overview/request/${id}`}>
-                    <AiOutlineSearch />
-                  </Link>
-                </td>
-                <td>
-                  <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
-                </td>
+        {!adoptionRequests && <p>Loading...</p>}
+        {adoptionRequests.length === 0 && (
+          <p>You have no pending adoptionrequests</p>
+        )}
+        {adoptionRequests.length > 0 && (
+          <table>
+            <thead>
+              <tr>
+                <td>Request#</td>
+                <td>Request date</td>
+                <td>Animal name</td>
+                <td>Status</td>
+                <td></td>
+                <td></td>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {adoptionRequests.map(({ id, dateString, animal }) => (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{dateString}</td>
+                  <td>
+                    <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
+                  </td>
+                  <td>Pending</td>
+                  <td>
+                    <Link href={`/overview/request/${id}`}>
+                      <AiOutlineSearch />
+                    </Link>
+                  </td>
+                  <td>
+                    <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <ToastContainer
         position="bottom-right"
@@ -114,15 +128,3 @@ const Overview = ({ adoptionrequests }) => {
 };
 
 export default Overview;
-
-export const getServerSideProps = async () => {
-  const {
-    data: { adoptionrequests },
-  } = await axios("http://127.0.0.1:8000/api/users/1");
-
-  return {
-    props: {
-      adoptionrequests,
-    },
-  };
-};
