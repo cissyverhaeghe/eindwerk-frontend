@@ -63,7 +63,7 @@ export const getServerSideProps = async (ctx) => {
   } = ctx;
 
   const { data: adoptionrequest } = await axios(
-    `http://127.0.0.1:8000/api/adoptionrequests/${id}`
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequests/${id}`
   );
 
   return {

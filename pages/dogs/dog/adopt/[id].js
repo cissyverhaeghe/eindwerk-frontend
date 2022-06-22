@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx) => {
   } = ctx;
 
   const { data: animal } = await axios(
-    `http://127.0.0.1:8000/api/animals/${id}`
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/animals/${id}`
   );
 
   return {

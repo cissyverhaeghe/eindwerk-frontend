@@ -111,8 +111,12 @@ const Index = ({ dogs, breeds: { breeds } }) => {
 export default Index;
 
 export const getServerSideProps = async () => {
-  const { data: dogs } = await axios("http://127.0.0.1:8000/api/dogs");
-  const { data: breeds } = await axios("http://127.0.0.1:8000/api/species/2");
+  const { data: dogs } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/dogs`
+  );
+  const { data: breeds } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/species/2`
+  );
 
   return {
     props: {

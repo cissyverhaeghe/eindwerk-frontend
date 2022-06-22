@@ -24,8 +24,12 @@ const Index = ({ cats, dogs }) => {
 export default Index;
 
 export const getServerSideProps = async () => {
-  const { data: cats } = await axios("http://127.0.0.1:8000/api/cats");
-  const { data: dogs } = await axios("http://127.0.0.1:8000/api/dogs");
+  const { data: cats } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/cats`
+  );
+  const { data: dogs } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/dogs`
+  );
 
   return {
     props: {

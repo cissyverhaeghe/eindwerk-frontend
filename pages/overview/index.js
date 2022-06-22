@@ -30,7 +30,7 @@ const Overview = () => {
       (async () => {
         try {
           const data = await axios(
-            `http://127.0.0.1:8000/api/adoptionrequests/${id}`,
+            `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequests/${id}`,
             {
               method: "DELETE",
             }
@@ -51,7 +51,7 @@ const Overview = () => {
       try {
         const {
           data: { adoptionrequests },
-        } = await axios(`http://127.0.0.1:8000/api/users/${id}`);
+        } = await axios(`${process.env.NEXT_PUBLIC_BASEPATH}/api/users/${id}`);
         console.log(adoptionrequests);
         setAdoptionRequests(adoptionrequests);
         setLoading(false);

@@ -42,7 +42,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
             status_id: 1,
           };
           const data = await axios(
-            "http://127.0.0.1:8000/api/adoptionrequest",
+            `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequest`,
             {
               method: "POST",
               data: JSON.stringify(body),

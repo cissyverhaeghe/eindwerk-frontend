@@ -25,10 +25,14 @@ const Login = () => {
           email,
           password,
         };
-        const data = await axios("http://127.0.0.1:8000/app_json_login", {
-          method: "POST",
-          data: body,
-        });
+        const data = await axios(
+          `${process.env.NEXT_PUBLIC_BASEPATH}/app_json_login`,
+          {
+            method: "POST",
+            data: body,
+            withCredentials: true,
+          }
+        );
         userCtxt.login(data.data);
         setError(false);
       } catch (error) {
