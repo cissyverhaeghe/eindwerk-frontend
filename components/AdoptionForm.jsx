@@ -85,6 +85,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
                 maxLength="500"
                 minLength="5"
                 required
+                spellCheck="false"
               />
               {charErrorMessage && (
                 <p className="error">

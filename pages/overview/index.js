@@ -91,14 +91,14 @@ const Overview = () => {
                 </tr>
               </thead>
               <tbody>
-                {adoptionRequests.map(({ id, dateString, animal }) => (
+                {adoptionRequests.map(({ id, dateString, animal, status }) => (
                   <tr key={id}>
                     <td>{id}</td>
                     <td>{dateString}</td>
                     <td>
                       <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
                     </td>
-                    <td>Pending</td>
+                    <td>{status.name}</td>
                     <td>
                       <Link href={`/overview/request/${id}`}>
                         <AiOutlineSearch />
