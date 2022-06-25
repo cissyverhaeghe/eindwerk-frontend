@@ -2,13 +2,14 @@ import axios from "axios";
 import NavBar from "../../../../components/NavBar";
 import Banner from "../../../../components/Banner";
 import Footer from "../../../../components/Footer";
+import AdoptionForm from "../../../../components/AdoptionForm";
 
 const Detail = ({ animal }) => {
   return (
     <>
       <NavBar />
       <Banner title="ADOPT" />
-      <div>{animal.name}</div>
+      <AdoptionForm animal={animal} />
       <Footer />
     </>
   );

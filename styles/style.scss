@@ -1,6 +1,7 @@
 @use "./base/fonts" as *;
 @use "./base/variables" as *;
 @use "./base/reset";
+@import "react-checkbox-tree/lib/react-checkbox-tree.css";
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: $olive;
@@ -566,8 +567,19 @@ body {
                 margin: 0 auto;
             }
         }
-    
 
+        select {
+            background-color: $base;
+            color: $darkgrey;
+            font-family: Montserrat;
+            width: 75%;
+            height: 30px;
+            padding: 5px;
+            font-weight: bold;
+            
+        }
+    
+        
 }
 
 
