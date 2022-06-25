@@ -21,32 +21,28 @@ const Index = ({ dogs, breeds: { breeds } }) => {
     dogs
   );
 
-  const handleBreedChange = (id, e) => {
-    id === selectedBreed ? setSelectedBreed("") : setSelectedBreed(id);
-    e.target.className === "selected"
-      ? (e.target.className = "")
-      : (e.target.className = "selected");
+  const handleBreedChange = (e) => {
+    e.target.value === selectedBreed
+      ? setSelectedBreed("")
+      : setSelectedBreed(e.target.value);
   };
 
-  const handleSexChange = (id, e) => {
-    id === selectedSex ? setSelectedSex("") : setSelectedSex(id);
-    e.target.className === "selected"
-      ? (e.target.className = "")
-      : (e.target.className = "selected");
+  const handleSexChange = (e) => {
+    e.target.value === selectedSex
+      ? setSelectedSex("")
+      : setSelectedSex(e.target.value);
   };
 
-  const handleAgeChange = (id, e) => {
-    id === selectedAge ? setSelectedAge("") : setSelectedAge(id);
-    e.target.className === "selected"
-      ? (e.target.className = "")
-      : (e.target.className = "selected");
+  const handleAgeChange = (e) => {
+    e.target.value === selectedAge
+      ? setSelectedAge("")
+      : setSelectedAge(e.target.value);
   };
 
-  const handleNeuteredChange = (id, e) => {
-    id === selectedNeutered ? setSelectedNeutered("") : setSelectedNeutered(id);
-    e.target.className === "selected"
-      ? (e.target.className = "")
-      : (e.target.className = "selected");
+  const handleNeuteredChange = (e) => {
+    e.target.value === selectedNeutered
+      ? setSelectedNeutered("")
+      : setSelectedNeutered(e.target.value);
   };
 
   return (
@@ -57,28 +53,40 @@ const Index = ({ dogs, breeds: { breeds } }) => {
         <div className="filters">
           <div className="filter">
             <h2>Breed</h2>
-            {breeds &&
-              breeds.map(({ id, name }) => (
-                <button key={id} onClick={(e) => handleBreedChange(id, e)}>
-                  {name}
-                </button>
-              ))}
+            <select value={selectedBreed} onChange={handleBreedChange}>
+              <option value="">All</option>
+              {breeds &&
+                breeds.map(({ id, name }) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
+            </select>
           </div>
           <div className="filter">
             <h2>Sex</h2>
-            <button onClick={(e) => handleSexChange(1, e)}>Male</button>
-            <button onClick={(e) => handleSexChange(2, e)}>Female</button>
+            <select value={selectedSex} onChange={handleSexChange}>
+              <option value="">All</option>
+              <option value="1">Male</option>
+              <option value="2">Female</option>
+            </select>
           </div>
           <div className="filter">
             <h2>Age</h2>
-            <button onClick={(e) => handleAgeChange(1, e)}>Puppy</button>
-            <button onClick={(e) => handleAgeChange(3, e)}>Adult</button>
-            <button onClick={(e) => handleAgeChange(4, e)}>Senior</button>
+            <select value={selectedAge} onChange={handleAgeChange}>
+              <option value="">All</option>
+              <option value="2">Puppy</option>
+              <option value="3">Adult</option>
+              <option value="4">Senior</option>
+            </select>
           </div>
           <div className="filter">
             <h2>Neutered</h2>
-            <button onClick={(e) => handleNeuteredChange(1, e)}>Yes</button>
-            <button onClick={(e) => handleNeuteredChange(0, e)}>No</button>
+            <select value={selectedNeutered} onChange={handleNeuteredChange}>
+              <option value="">All</option>
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
           </div>
         </div>
         <div className="animalGrid">
@@ -110,7 +118,7 @@ const Index = ({ dogs, breeds: { breeds } }) => {
 
 export default Index;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { data: dogs } = await axios(
     `${process.env.NEXT_PUBLIC_BASEPATH}/api/dogs`
   );
@@ -123,5 +131,6 @@ export const getServerSideProps = async () => {
       dogs,
       breeds,
     },
+    revalidate: 3600,
   };
 };

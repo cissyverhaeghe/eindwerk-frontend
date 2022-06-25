@@ -17,7 +17,20 @@ const Detail = ({ animal }) => {
 
 export default Detail;
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticPaths = async () => {
+  const { data: animals } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/animals`
+  );
+
+  return {
+    paths: animals.map(({ id }) => ({
+      params: { id: id.toString() },
+    })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps = async (ctx) => {
   const {
     params: { id },
   } = ctx;
@@ -30,5 +43,6 @@ export const getServerSideProps = async (ctx) => {
     props: {
       animal,
     },
+    revalidate: 3600,
   };
 };

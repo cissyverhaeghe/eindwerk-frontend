@@ -57,7 +57,20 @@ const Request = ({ adoptionrequest }) => {
 
 export default Request;
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticPaths = async () => {
+  const { data: adoptionrequests } = await axios(
+    `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequests`
+  );
+
+  return {
+    paths: adoptionrequests.map(({ id }) => ({
+      params: { id: id.toString() },
+    })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps = async (ctx) => {
   const {
     params: { id },
   } = ctx;
@@ -69,6 +82,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       adoptionrequest,
+      revalidate: 3600,
     },
   };
 };

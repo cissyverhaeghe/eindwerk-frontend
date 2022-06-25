@@ -118,7 +118,7 @@ const Index = ({ cats, breeds: { breeds } }) => {
 
 export default Index;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { data: cats } = await axios(
     `${process.env.NEXT_PUBLIC_BASEPATH}/api/cats`
   );
@@ -131,5 +131,6 @@ export const getServerSideProps = async () => {
       cats,
       breeds,
     },
+    revalidate: 3600,
   };
 };
