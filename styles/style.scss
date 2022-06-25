@@ -2,6 +2,7 @@
 @use "./base/variables" as *;
 @use "./base/reset";
 @import "react-checkbox-tree/lib/react-checkbox-tree.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: $olive;
