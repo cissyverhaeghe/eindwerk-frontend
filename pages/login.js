@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar";
 import Banner from "../components/Banner";
+import Footer from "../components/Footer";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { parseCookies, setCookie, destroyCookie } from "nookies";
@@ -115,6 +116,7 @@ const Login = ({ cookies }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
