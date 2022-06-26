@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import {
+  FaCat,
+  FaDog,
+  FaHome,
+  FaInfo,
+  FaPaperclip,
+  FaUserAlt,
+  FaUserAltSlash,
+} from "react-icons/fa";
 
 const NavBar = () => {
   const userCtxt = useContext(UserContext);
@@ -13,7 +22,8 @@ const NavBar = () => {
       <div className="logo">
         <Link href="/">LASH</Link>
       </div>
-      <ul>
+
+      <ul className="desktop">
         <li>
           <Link href="/">Home</Link>
         </li>
@@ -34,6 +44,45 @@ const NavBar = () => {
           )}
         </li>
         {loggedIn && <li onClick={logoutHandler}>Logout</li>}
+      </ul>
+
+      <ul className="mobile">
+        <li>
+          <Link href="/">
+            <FaHome />
+          </Link>
+        </li>
+        <li>
+          <Link href="/cats">
+            <FaCat />
+          </Link>
+        </li>
+        <li>
+          <Link href="/dogs">
+            <FaDog />
+          </Link>
+        </li>
+        <li>
+          <Link href="/about">
+            <FaInfo />
+          </Link>
+        </li>
+        <li>
+          {loggedIn ? (
+            <Link href="/overview">
+              <FaPaperclip />
+            </Link>
+          ) : (
+            <Link href="/login">
+              <FaUserAlt />
+            </Link>
+          )}
+        </li>
+        {loggedIn && (
+          <li onClick={logoutHandler}>
+            <FaUserAltSlash />
+          </li>
+        )}
       </ul>
     </div>
   );

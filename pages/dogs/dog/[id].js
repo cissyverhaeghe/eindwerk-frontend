@@ -8,7 +8,7 @@ const Detail = ({ animal }) => {
   return (
     <>
       <NavBar />
-      <Banner title="CATS" />
+      <Banner title="DOGS" />
       <AnimalDetail animal={animal} />
       <Footer />
     </>

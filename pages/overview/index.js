@@ -9,6 +9,7 @@ import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext, useEffect, useState } from "react";
+import { parseCookies, setCookie, destroyCookie } from "nookies";
 
 const Overview = () => {
   const [adoptionRequests, setAdoptionRequests] = useState("");
@@ -29,10 +30,14 @@ const Overview = () => {
     if (confirmAction) {
       (async () => {
         try {
+          console.log(token);
           const data = await axios(
             `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequests/${id}`,
             {
               method: "DELETE",
+              headers: {
+                Authorization: "Bearer " + token,
+              },
             }
           );
           console.log(data);
@@ -46,12 +51,21 @@ const Overview = () => {
   }
 
   function getAdoptionRequests(id) {
+    const cookies = parseCookies();
+    let token = cookies.cookiebackend;
+    console.log(cookies.cookiebackend);
     (async () => {
       setLoading(true);
       try {
         const {
           data: { adoptionrequests },
-        } = await axios(`${process.env.NEXT_PUBLIC_BASEPATH}/api/users/${id}`);
+        } = await axios(`${process.env.NEXT_PUBLIC_BASEPATH}/api/users/${id}`, {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        });
         console.log(adoptionrequests);
         setAdoptionRequests(adoptionrequests);
         setLoading(false);
@@ -79,38 +93,46 @@ const Overview = () => {
             <p>You have no pending adoptionrequests</p>
           )}
           {adoptionRequests.length > 0 && (
-            <table>
-              <thead>
-                <tr>
-                  <td>Request#</td>
-                  <td>Request date</td>
-                  <td>Animal name</td>
-                  <td>Status</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </thead>
-              <tbody>
-                {adoptionRequests.map(({ id, dateString, animal, status }) => (
-                  <tr key={id}>
-                    <td>{id}</td>
-                    <td>{dateString}</td>
-                    <td>
-                      <Link href={`/cats/cat/${animal.id}`}>{animal.name}</Link>
-                    </td>
-                    <td>{status.name}</td>
-                    <td>
-                      <Link href={`/overview/request/${id}`}>
-                        <AiOutlineSearch />
-                      </Link>
-                    </td>
-                    <td>
-                      <AiOutlineDelete onClick={(e) => handleDelete(e, id)} />
-                    </td>
+            <div className="tablewrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <td>Request#</td>
+                    <td>Request date</td>
+                    <td>Animal name</td>
+                    <td>Status</td>
+                    <td></td>
+                    <td></td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {adoptionRequests.map(
+                    ({ id, dateString, animal, status }) => (
+                      <tr key={id}>
+                        <td>{id}</td>
+                        <td>{dateString}</td>
+                        <td>
+                          <Link href={`/cats/cat/${animal.id}`}>
+                            {animal.name}
+                          </Link>
+                        </td>
+                        <td>{status.name}</td>
+                        <td>
+                          <Link href={`/overview/request/${id}`}>
+                            <AiOutlineSearch />
+                          </Link>
+                        </td>
+                        <td>
+                          <AiOutlineDelete
+                            onClick={(e) => handleDelete(e, id)}
+                          />
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       )}

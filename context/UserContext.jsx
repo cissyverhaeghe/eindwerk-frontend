@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { destroyCookie } from "nookies";
 
 const UserContext = createContext({
   user: {},
@@ -16,6 +17,7 @@ const UserProvider = ({ children }) => {
   };
   const logoutHandler = () => {
     setUser({});
+    destroyCookie(null, "cookiebackend");
   };
 
   const contextValue = {

@@ -9,38 +9,55 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-const Login = () => {
+const Login = ({ cookies }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [token, setToken] = useState("");
   const userCtxt = useContext(UserContext);
   let loggedIn = userCtxt.isLoggedIn;
   const router = useRouter();
 
+  console.log(cookies);
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     (async () => {
       try {
         const body = {
-          email,
+          username: email,
           password,
         };
         const data = await axios(
-          `${process.env.NEXT_PUBLIC_BASEPATH}/app_json_login`,
+          `${process.env.NEXT_PUBLIC_BASEPATH}/api/login_check`,
           {
             method: "POST",
             data: body,
             withCredentials: true,
           }
         );
-        userCtxt.login(data.data);
+        userCtxt.login(data.data.user);
+        console.log(data.data.token);
+        setToken(data.data.token);
         setError(false);
+        setLoading(false);
       } catch (error) {
         console.log(error);
         setError(true);
+        setLoading(false);
       }
     })();
   };
+
+  useEffect(() => {
+    if (token) {
+      setCookie(null, "cookiebackend", token, {
+        maxAge: 1 * 24 * 60 * 60,
+        path: "/",
+      });
+    }
+  }, [setToken, token]);
 
   return (
     <>
@@ -70,6 +87,7 @@ const Login = () => {
                 <button onClick={handleFormSubmit}>Login</button>
               </form>
               {error && <p>Invalid Credentials</p>}
+              {loading && <p>Loading...</p>}
             </aside>
           </>
         )}
@@ -102,23 +120,3 @@ const Login = () => {
 };
 
 export default Login;
-//
-
-// export async function getServerSideProps(ctx) {
-//   // Parse
-//   const cookies = nookies.get(ctx);
-
-//   // Set
-//   nookies.set(ctx, "fromGetInitialProps", "value", {
-//     maxAge: 30 * 24 * 60 * 60,
-//     path: "/",
-//   });
-
-//   // Destroy
-//   // nookies.destroy(ctx, 'cookieName')
-
-//   return {
-//     props: {
-//       cookies,
-//     },
-//   };

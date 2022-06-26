@@ -1,4 +1,4 @@
-const Banner = ({title}) => {
+const Banner = ({ title }) => {
   return (
     <div className="banner">
       <h1>{title}</h1>
