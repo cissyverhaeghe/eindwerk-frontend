@@ -8,12 +8,15 @@ export default function useFilter(
   cats
 ) {
   const [filteredData, setFilteredData] = useState(cats);
+
   useEffect(() => {
     const filterByBreed = (filteredData) => {
+      //if no breed is selected just return the data
       if (!selectedBreed) {
         return filteredData;
       }
 
+      //if the breed is selected, filter the data
       const filteredCats = filteredData.filter(
         (cat) => cat.breed_id === selectedBreed.toString()
       );
@@ -54,10 +57,13 @@ export default function useFilter(
       return filteredCats;
     };
 
+    //run the data through all the filters
     let filteredData = filterByBreed(cats);
     filteredData = filterBySex(filteredData);
     filteredData = filterByAge(filteredData);
     filteredData = filterByNeutered(filteredData);
+
+    //set the filteredDataState to this data
     setFilteredData(filteredData);
   }, [selectedBreed, selectedSex, selectedAge, selectedNeutered, cats]);
 

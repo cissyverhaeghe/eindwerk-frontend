@@ -12,11 +12,15 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
   const [charErrorMessage, setCharErrorMessage] = useState(false);
   const [apiErrorMessage, setAPIErrorMessage] = useState(false);
 
+  //get a datetimeobject
   const date = moment().format();
   const userCtxt = useContext(UserContext);
+
+  //set the usercontext to logged in
   let loggedIn = userCtxt.isLoggedIn;
 
   useEffect(() => {
+    //if the user tried to apply and the message is not the correct length show an error message
     if (triedToApply) {
       if (message.length > 5 && message.length < 500) {
         setCharErrorMessage(false);
@@ -24,6 +28,7 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
     }
   }, [message, triedToApply]);
 
+  //send the adoptionrequest
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (message.length < 5 || message.length > 500) {

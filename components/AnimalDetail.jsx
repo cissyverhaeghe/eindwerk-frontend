@@ -33,7 +33,7 @@ const AnimalDetail = ({
             </tr>
             <tr>
               <td>Neutered</td>
-              <td>{(neutered = 1 ? "Yes" : "No")}</td>
+              <td>{neutered === 1 ? "Yes" : "No"}</td>
             </tr>
             <tr>
               <td>Age</td>

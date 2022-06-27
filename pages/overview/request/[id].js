@@ -1,8 +1,6 @@
 import axios from "axios";
-
 import NavBar from "../../../components/NavBar";
 import Banner from "../../../components/Banner";
-import AdoptionForm from "../../../components/AdoptionForm";
 import Footer from "../../../components/Footer";
 import Link from "next/link";
 
