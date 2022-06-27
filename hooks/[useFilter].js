@@ -44,15 +44,12 @@ export default function useFilter(
     };
 
     const filterByNeutered = (filteredData) => {
-      console.log(selectedNeutered);
       if (selectedNeutered === "") {
         return filteredData;
       }
       const filteredCats = filteredData.filter(
         (cat) => cat.neutered === selectedNeutered.toString()
       );
-
-      console.log(filteredCats);
 
       return filteredCats;
     };

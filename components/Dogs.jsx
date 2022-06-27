@@ -2,9 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Dogs = ({ allDogs }) => {
-  console.log(allDogs);
-
-  let dogs = allDogs.slice(0, 4);
+ let dogs = allDogs.slice(0, 4);
 
   return (
     <div className="animals dogs">

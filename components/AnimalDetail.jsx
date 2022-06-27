@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 const AnimalDetail = ({
   animal: { id, photo, name, sex, breed, neutered, age, description },
 }) => {
-  console.log(age);
   const router = useRouter();
   return (
     <div className="details">

@@ -7,8 +7,6 @@ import Dogs from "../components/Dogs";
 import Footer from "../components/Footer";
 
 const Index = ({ cats, dogs }) => {
-  console.log(dogs);
-  console.log(cats);
   return (
     <>
       <NavBar />

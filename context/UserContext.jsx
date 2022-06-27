@@ -12,7 +12,6 @@ const UserProvider = ({ children }) => {
   const userIsLoggedIn = Object.keys(user) != 0;
 
   const loginHandler = (user) => {
-    console.log(user);
     setUser(user);
   };
   const logoutHandler = () => {

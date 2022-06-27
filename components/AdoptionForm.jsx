@@ -13,7 +13,6 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
   const [apiErrorMessage, setAPIErrorMessage] = useState(false);
 
   const date = moment().format();
-  console.log(date);
   const userCtxt = useContext(UserContext);
   let loggedIn = userCtxt.isLoggedIn;
 
@@ -48,7 +47,6 @@ const AdoptionForm = ({ animal: { id, name, photo } }) => {
               data: JSON.stringify(body),
             }
           );
-          console.log(data);
           if (data) {
             setSubmitted(true);
             setAPIErrorMessage(false);

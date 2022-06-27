@@ -20,7 +20,6 @@ const Login = ({ cookies }) => {
   let loggedIn = userCtxt.isLoggedIn;
   const router = useRouter();
 
-  console.log(cookies);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +38,6 @@ const Login = ({ cookies }) => {
           }
         );
         userCtxt.login(data.data.user);
-        console.log(data.data.token);
         setToken(data.data.token);
         setError(false);
         setLoading(false);

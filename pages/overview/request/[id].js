@@ -11,7 +11,6 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 
 const Request = ({ adoptionrequest }) => {
-  console.log(adoptionrequest);
   const router = useRouter();
   const userCtxt = useContext(UserContext);
   let loggedIn = userCtxt.isLoggedIn;

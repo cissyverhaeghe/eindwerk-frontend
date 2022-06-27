@@ -16,7 +16,6 @@ const Overview = () => {
   const userCtxt = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   let loggedIn = userCtxt.isLoggedIn;
-  console.log(userCtxt.user);
 
   const notify = () => toast("Your request has been deleted successfully");
   useEffect(() => {
@@ -32,7 +31,6 @@ const Overview = () => {
     if (confirmAction) {
       (async () => {
         try {
-          console.log(token);
           const data = await axios(
             `${process.env.NEXT_PUBLIC_BASEPATH}/api/adoptionrequests/${id}`,
             {
@@ -42,7 +40,6 @@ const Overview = () => {
               },
             }
           );
-          console.log(data);
           getAdoptionRequests(userCtxt.user.id);
         } catch (error) {
           console.log(error);
@@ -55,7 +52,6 @@ const Overview = () => {
   function getAdoptionRequests(id) {
     const cookies = parseCookies();
     let token = cookies.cookiebackend;
-    console.log(cookies.cookiebackend);
     (async () => {
       setLoading(true);
       try {
@@ -68,7 +64,6 @@ const Overview = () => {
             accept: "application/json",
           },
         });
-        console.log(adoptionrequests);
         setAdoptionRequests(adoptionrequests);
         setLoading(false);
       } catch (error) {
