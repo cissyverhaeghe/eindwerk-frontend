@@ -27,6 +27,7 @@ const Overview = () => {
     let confirmAction = confirm(
       "Are you sure you want to delete this request?"
     );
+    let token = cookies.cookiebackend;
     if (confirmAction) {
       (async () => {
         try {
